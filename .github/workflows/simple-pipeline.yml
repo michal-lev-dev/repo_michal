@@ -19,7 +19,7 @@ jobs:
           echo "Installing application dependencies..."
           echo "Build finished successfully!"
 
-job:
+jobs:
   test_stage:
     needs: build_stage
     runs-on: ubuntu-latest
