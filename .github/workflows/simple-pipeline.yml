@@ -18,3 +18,14 @@ jobs:
           echo "=== STARTING BUILD STAGE ==="
           echo "Installing application dependencies..."
           echo "Build finished successfully!"
+
+job:
+  test_stage:
+    needs: build_stage
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Simulate Tests
+        run: |
+          echo "=== STARTING TEST STAGE ==="
+          python3 -c "print('JUnit / PyTest status: 100% Success!')"
