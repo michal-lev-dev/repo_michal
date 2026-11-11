@@ -13,30 +13,34 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Simulate Build
-        run: |
-          echo "=== STARTING BUILD STAGE ==="
-          echo "Installing application dependencies..."
-          echo "Build finished successfully!"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
 
   test_stage:
     needs: build_stage
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Simulate Tests
-        run: |
-          echo "=== STARTING TEST STAGE ==="
-          python3 -c "print('JUnit / PyTest status: 100% Success!')"
-
-  deploy_stage:
-    needs: test_stage
-    runs-on: ubuntu-latest
 
     steps:
-      - name: Simulate Deploy
-        run: |
-          echo "=== STARTING DEPLOY STAGE ==="
-          echo "Deploying the artifact to Staging environment..."
-          echo "Deployment completed! App is live."
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
